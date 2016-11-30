@@ -3,3 +3,5 @@
 /ClashResUnpacker/Debug
 /.vs
 /*.opendb
+/Release
+/ClashResUnpacker/Release

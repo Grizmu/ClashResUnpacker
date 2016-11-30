@@ -1,8 +1,26 @@
 #pragma once
+#include <string>
 
 class Unpacker {
 public:
+	enum UnpackerType {
+		UP_MAXIMUM,
+		UP_MUSIC,
+		UP_UNKNOWN
+	};
+private:
+	UnpackerType type;
 
-	void virtual Init() {};
-	void virtual Unpack() {};
+	Unpacker() {}
+
+protected:
+
+	Unpacker(UnpackerType type) {
+		this->type = type;
+	}
+
+public:
+
+	virtual ~Unpacker() {};
+	virtual void Unpack(std::string file, std::string outputDir) {};
 };

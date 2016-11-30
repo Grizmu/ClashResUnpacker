@@ -5,6 +5,7 @@
 #include <string> 
 #include <filesystem>
 #include <experimental/filesystem>
+#include <fstream>
 
 using namespace std;
 using namespace std::experimental;
@@ -59,3 +60,38 @@ public:
 		cout << msg << endl;
 	}
 };
+
+//_____________________________________________________________________________
+void LoadFileData(string &data, string file, size_t &fileSize) {
+	filesystem::v1::path filePath(file);
+	bool fileExists = filesystem::v1::exists(filePath);
+
+	if (fileExists) {
+		DebugConsole::Log("Unpacking " + file);
+	}
+	else {
+		DebugConsole::Log("File " + file + " not found!");
+		return;
+	}
+
+	/*
+	std::ifstream in(filePath.string());
+	ostringstream ss = std::ostringstream{};
+	ss << in.rdbuf();
+
+	string s = ss.str();
+	*/
+
+	std::ifstream in(filePath.string(), ios::binary);
+	in.seekg(0, std::ios::end);
+	fileSize = in.tellg();
+	data = string(fileSize, ' ');
+	in.seekg(0);
+	in.read(&data[0], fileSize);
+}
+
+void LoadFileData(string &data, string file) {
+	size_t fileSize;
+
+	LoadFileData(data, file, fileSize);
+}

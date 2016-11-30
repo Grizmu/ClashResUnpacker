@@ -146,6 +146,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ClashResUnpacker.h" />
+    <ClInclude Include="DefaultUnpacker.h" />
+    <ClInclude Include="MaximumUnpacker.h" />
+    <ClInclude Include="MusicUnpacker.h" />
+    <ClInclude Include="Unpacker.h" />
+    <ClInclude Include="UnpackerFactory.h" />
     <ClInclude Include="Utils.h" />
     <ClInclude Include="dr_pcx.h" />
   </ItemGroup>
