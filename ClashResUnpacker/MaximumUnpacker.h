@@ -4,6 +4,7 @@
 #include <filesystem>
 #include <fstream>
 #include <vector>
+#include <sstream>
 
 using namespace std;
 using namespace std::experimental;
@@ -46,8 +47,16 @@ public:
 	}
 
 	virtual void Unpack(std::string file, std::string outputDir) {
+		if (FileExists(file)) {
+			DebugConsole::Log("Unpacking " + file);
+		}
+		else {
+			DebugConsole::Log("File " + file + " not found!");
+			return;
+		}
+
 		CreateOutputFolder(outputDir);
-		
+
 		string data;
 		size_t size;
 
@@ -98,7 +107,7 @@ public:
 		string message = "";
 
 		message += "ID :" + to_string(pcxHeader.Identifier) + " ";		/* PCX Id Number (Always 0x0A) */	//BYTE	
-		message += "Ver:" + to_string(pcxHeader.Version) + " ";		/* Version Number */				//BYTE	
+		message += "Ver:" + to_string(pcxHeader.Version) + " ";			/* Version Number */				//BYTE	
 		message += "Enc:" + to_string(pcxHeader.Encoding) + " ";		/* Encoding Format */				//BYTE	
 		message += "BPP:" + to_string(pcxHeader.BitsPerPixel) + " ";	/* Bits per Pixel */				//BYTE	
 		message += "XSt:" + to_string(pcxHeader.XStart) + " ";			/* Left of image */					//WORD	
@@ -118,9 +127,9 @@ public:
 		message += "Planes:"	+ to_string(pcxHeader.NumBitPlanes) + " ";      /* Number of Bit Planes */		//BYTE	
 		message += "BPL:"		+ to_string(pcxHeader.BytesPerLine) + " ";      /* Bytes per Scan-line */		//WORD	
 		message += "PalType:"	+ to_string(pcxHeader.PaletteType) + " ";       /* Palette Type */				//WORD	
-		message += "HScSize:"	+ to_string(pcxHeader.HorzScreenSize) + " ";    /* Horizontal Screen Size */		//WORD	
+		message += "HScSize:"	+ to_string(pcxHeader.HorzScreenSize) + " ";    /* Horizontal Screen Size */	//WORD	
 		message += "VScSize:"	+ to_string(pcxHeader.VertScreenSize) + " ";    /* Vertical Screen Size */		//WORD	
-		message += "Res[54] \n";													/* Reserved (Always 0) */		//BYTE	
+		message += "Res[54] \n";													/* Reserved (Always 0) */	//BYTE	
 
 		DebugConsole::Log(message);
 	}
@@ -147,7 +156,48 @@ public:
 		int components = 1;
 		components = (header.BitsPerPixel == 8 && header.NumBitPlanes == 4) ? 4 : components;
 
-		size_t dataSize = width * height * components;
+		//size_t dataSizeTest = width * height * components;
+
+		char byte;
+		int index = startIndex + 128;
+		int currentPixelAmount = 0;
+		int currentRow = 0;
+		
+		do {
+			byte = data[index];
+			if ((byte & 0xC0) == 0xC0) { // 11xx xxxx means that the pixel color is encoded, where xx xxxx is the amount of the pixels that share the same color.
+				currentPixelAmount += (byte & 0x3F);
+				index += 2;
+			}
+			else {
+				currentPixelAmount++;
+				index++;
+			}
+
+			if (currentPixelAmount >= width) {
+				currentPixelAmount -= width;
+				currentRow++;
+			}
+
+		} while (currentRow < height);
+
+		index += 769;
+
+		size_t dataSize = index - startIndex;
+
+		stringstream consoleLog;
+
+		consoleLog << "Data size : " << dataSize << endl;
+		consoleLog << "Last 5 bytes: ";
+
+		for (int i = 4; i >= 0; i--) {
+			unsigned char c = data[index - i];
+			consoleLog << std::hex << (int)c << std::dec << " ";
+		}
+
+		consoleLog << endl;
+
+		DebugConsole::Log(consoleLog.str());
 
 		//pcxData = drpcx_load_memory(&data[startIndex], dataSize, DR_FALSE, NULL, NULL, NULL, 4);
 		pcxData = data.substr(startIndex, dataSize);

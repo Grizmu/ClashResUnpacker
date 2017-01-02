@@ -53,6 +53,13 @@ public:
 	}
 
 	virtual void Unpack(std::string file, std::string outputDir) {
+		if (FileExists(file)) {
+			DebugConsole::Log("Unpacking " + file);
+		}
+		else {
+			DebugConsole::Log("File " + file + " not found!");
+			return;
+		}
 		CreateOutputFolder(outputDir);
 
 		string data;

@@ -61,16 +61,20 @@ public:
 	}
 };
 
+bool FileExists(string file) {
+	filesystem::v1::path filePath(file);
+	return filesystem::v1::exists(filePath);
+}
 //_____________________________________________________________________________
 void LoadFileData(string &data, string file, size_t &fileSize) {
 	filesystem::v1::path filePath(file);
 	bool fileExists = filesystem::v1::exists(filePath);
 
 	if (fileExists) {
-		DebugConsole::Log("Unpacking " + file);
+		//DebugConsole::Log("Unpacking " + file);
 	}
 	else {
-		DebugConsole::Log("File " + file + " not found!");
+		//DebugConsole::Log("File " + file + " not found!");
 		return;
 	}
 

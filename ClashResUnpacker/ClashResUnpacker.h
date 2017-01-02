@@ -30,14 +30,14 @@ public:
 	}
 
 	void Unpack() {
-		unpackers[0]->Unpack(exePath.string() + "//MAXIMUM.RES",outputPath.string());
-		unpackers[1]->Unpack(exePath.string() + "//MUSIC.RES",	outputPath.string());
+		unpackers[0]->Unpack(exePath.string() + "\\MAXIMUM.RES",outputPath.string());
+		unpackers[1]->Unpack(exePath.string() + "\\MUSIC.RES",	outputPath.string());
 	}
 
 	void ShowSplash() {
-		cout << "Clash Res Unpacker v0.15 by Griz" << endl << endl;
+		cout << "Clash Res Unpacker v0.18 by Griz" << endl << endl;
 		cout << "Supported files:" << endl;
-		cout << "MAXIMUM.RES - 50%" << endl;
+		cout << "MAXIMUM.RES - 60%" << endl;
 		//cout << "NORMAL.RES  - 0%" << endl;
 		//cout << "MINIMUM.RES - 0%" << endl;
 		//cout << "GFX3.RES    - 0%" << endl;
@@ -51,7 +51,7 @@ private:
 
 	void InitPaths() {
 		exePath = GetExePath();
-		SetOutputPath("//output");
+		SetOutputPath("\\output");
 	}
 
 	void SetOutputPath(string folderName) {
