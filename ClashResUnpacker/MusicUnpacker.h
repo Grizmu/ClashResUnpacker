@@ -8,6 +8,10 @@
 using namespace std;
 using namespace std::experimental;
 
+
+//MUSIC.RES data structure in bytes:
+// 18(name) + 4(offset) + 4(length)
+
 class MusicUnpacker : public Unpacker {
 private:
 
