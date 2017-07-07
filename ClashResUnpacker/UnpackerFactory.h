@@ -2,6 +2,7 @@
 #include "Unpacker.h"
 #include "MusicUnpacker.h"
 #include "MaximumUnpacker.h"
+#include "NormalUnpacker.h"
 #include "DefaultUnpacker.h"
 #include <memory>
 
@@ -14,6 +15,9 @@ public:
 		{
 		case Unpacker::UP_MAXIMUM:
 			return make_shared<MaximumUnpacker>();
+			break;
+		case Unpacker::UP_NORMAL:
+			return make_shared<NormalUnpacker>();
 			break;
 		case Unpacker::UP_MUSIC:
 			return make_shared<MusicUnpacker>();

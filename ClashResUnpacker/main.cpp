@@ -3,9 +3,13 @@
 #include "Utils.h"
 #include "ClashResUnpacker.h"
 
+//#include <Magick++.h>
+//using namespace Magick;
+
 //_____________________________________________________________________________
 int main(int argc, char ** argv) {
-	
+	//InitializeMagick(*argv);
+
 	ClashResUnpacker unpacker;
 	unpacker.ShowSplash();
 

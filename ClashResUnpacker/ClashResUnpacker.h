@@ -24,21 +24,29 @@ public:
 
 		//Init unpackers
 
-		unpackers = vector<Unpacker_sp>(2);
+		unpackers = vector<Unpacker_sp>(3);
 		unpackers[0] = UnpackerFactory::CreateUnpacker(Unpacker::UnpackerType::UP_MAXIMUM);
 		unpackers[1] = UnpackerFactory::CreateUnpacker(Unpacker::UnpackerType::UP_MUSIC);
+		unpackers[2] = UnpackerFactory::CreateUnpacker(Unpacker::UnpackerType::UP_NORMAL);
+		
+		//unpackers = vector<Unpacker_sp>(1);
+		//unpackers[0] = UnpackerFactory::CreateUnpacker(Unpacker::UnpackerType::UP_NORMAL);
 	}
 
 	void Unpack() {
+		
 		unpackers[0]->Unpack(exePath.string() + "\\MAXIMUM.RES",outputPath.string());
 		unpackers[1]->Unpack(exePath.string() + "\\MUSIC.RES",	outputPath.string());
+		unpackers[2]->Unpack(exePath.string() + "\\NORMAL.RES", outputPath.string());
+	
+		//unpackers[0]->Unpack(exePath.string() + "\\NORMAL.RES", outputPath.string());
 	}
 
 	void ShowSplash() {
-		cout << "Clash Res Unpacker v0.18 by Griz" << endl << endl;
+		cout << "Clash Res Unpacker v0.25 by Griz" << endl << endl;
 		cout << "Supported files:" << endl;
 		cout << "MAXIMUM.RES - 60%" << endl;
-		//cout << "NORMAL.RES  - 0%" << endl;
+		cout << "NORMAL.RES  - 80%" << endl;
 		//cout << "MINIMUM.RES - 0%" << endl;
 		//cout << "GFX3.RES    - 0%" << endl;
 		//cout << "IS.RES      - 0%" << endl;
@@ -62,12 +70,12 @@ private:
 
 		if (outputExists) {
 			//All is ok
-			DebugConsole::Log("Found output directory.");
+			DebugConsole::Log("Found output directory " + folderName);
 		}
 		else {
 			//Create output directory
 			filesystem::v1::create_directory(outputPath);
-			DebugConsole::Log("Created output directory.");
+			DebugConsole::Log("Created output directory " + folderName);
 		}
 	}
 };

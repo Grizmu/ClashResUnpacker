@@ -19,23 +19,6 @@ private:
 
 	filesystem::v1::path outputPath;
 
-	void CreateOutputFolder(std::string outputDir) {
-		outputPath = filesystem::v1::path(outputDir + "//maximum");
-
-		//Check output directory
-		bool outputExists = filesystem::v1::exists(outputPath);
-
-		if (outputExists) {
-			//All is ok
-			DebugConsole::Log("Found maximum output directory.");
-		}
-		else {
-			//Create output directory
-			filesystem::v1::create_directory(outputPath);
-			DebugConsole::Log("Created maximum output directory.");
-		}
-	}
-
 public:
 	
 	MaximumUnpacker():
@@ -55,7 +38,7 @@ public:
 			return;
 		}
 
-		CreateOutputFolder(outputDir);
+		outputPath = CreateOutputFolder(outputDir + "\\maximum");
 
 		string data;
 		size_t size;
@@ -202,9 +185,24 @@ public:
 		//pcxData = drpcx_load_memory(&data[startIndex], dataSize, DR_FALSE, NULL, NULL, NULL, 4);
 		pcxData = data.substr(startIndex, dataSize);
 
-		string fileName = pcxFileName + to_string(pcxIndex) + ".pcx";
-		ofstream newPCXFile(outputPath.string() + "//" + fileName, ios::binary);
+		string fileName = pcxFileName + to_string(pcxIndex);
+		ofstream newPCXFile(outputPath.string() + "//" + fileName + ".pcx", ios::binary);
 		newPCXFile << pcxData;
 		pcxIndex++;
+
+		//Try to save the data to png.
+		/*
+		Image image;
+		Blob blob(&pcxData, dataSize);
+		try {
+			image.read(blob);
+			image.write(outputPath.string() + "//IM_" + fileName + ".png");
+		}
+		catch (Exception &e) {
+			cout << "ImageMagick exception : " << e.what() << endl;
+			return;
+		}
+
+		*/
 	}
 };

@@ -5,6 +5,7 @@ class Unpacker {
 public:
 	enum UnpackerType {
 		UP_MAXIMUM,
+		UP_NORMAL,
 		UP_MUSIC,
 		UP_UNKNOWN
 	};

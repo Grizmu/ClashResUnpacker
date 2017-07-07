@@ -21,23 +21,6 @@ private:
 	filesystem::v1::path outputPath;
 	string fileNames[11];
 
-	void CreateOutputFolder(std::string outputDir) {
-		outputPath = filesystem::v1::path(outputDir + "//music");
-
-		//Check output directory
-		bool outputExists = filesystem::v1::exists(outputPath);
-
-		if (outputExists) {
-			//All is ok
-			DebugConsole::Log("Found music output directory.");
-		}
-		else {
-			//Create output directory
-			filesystem::v1::create_directory(outputPath);
-			DebugConsole::Log("Created music output directory.");
-		}
-	}
-
 public:
 
 	MusicUnpacker() :
@@ -64,7 +47,8 @@ public:
 			DebugConsole::Log("File " + file + " not found!");
 			return;
 		}
-		CreateOutputFolder(outputDir);
+
+		outputPath = CreateOutputFolder(outputDir + "\\music");
 
 		string data;
 		size_t size;
@@ -114,8 +98,7 @@ public:
 
 	void ExtractWav(string const &data, int startIndex, int endIndex, string name) {
 		string wavData;
-		//todo
-		//pcxData = drpcx_load_memory(&data[startIndex], dataSize, DR_FALSE, NULL, NULL, NULL, 4);
+		
 		wavData = data.substr(startIndex, endIndex - startIndex);
 
 		string fileName = name + ".wav";
