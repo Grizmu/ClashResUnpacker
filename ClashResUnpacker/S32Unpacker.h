@@ -8,6 +8,23 @@
 
 struct Palette {
 	uint32_t color [256];
+
+	bool isEidianFlipped = false;
+
+	void Flip() {
+		for (int i = 0; i < 256; i++) {
+			std::reverse((char *)&color[i], (((char *)&color[i]) + 4)); //Flip to be bmp compatible - little eidian.
+		}
+		isEidianFlipped = !isEidianFlipped;
+	}
+
+	bool IsEidianFlipped() {
+		return isEidianFlipped;
+	}
+
+	void SetData(std::string &paletteData) {
+		memcpy(&color, paletteData.c_str(), sizeof(uint32_t) * 256); //Copy the palette to the variable.
+	}
 };
 
 struct S32ResData {
@@ -89,10 +106,10 @@ public:
 		uint16_t method;
 		uint32_t buffer;
 
-		uint32_t *pixels;
+		uint32_t *pixels = nullptr;
 		uint32_t pixelAmount;
 
-		std::string imageData;
+		//std::string imageData;
 		size_t ptr;
 		size_t pixelsPtr;
 
@@ -108,65 +125,55 @@ public:
 		uint8_t blue;
 
 		size_t offset;
-		for (int i = 0; i < imageAmount; i++) {
-			imageData = binData.substr(images[i].imageOffset, images[i].imageSize);
+		size_t imageOffsetEnd;
 
-			ptr = 0;
-			//width = reinterpret_cast<int16_t>(imageData.substr(ptr, 2).c_str()); ptr += 2;
-			//height = reinterpret_cast<int16_t>(imageData.substr(ptr, 2).c_str()); ptr += 8; //ptr skips the method and buffer.
-			memcpy(&width, imageData.substr(ptr, 2).c_str(), 2); ptr += 2;
-			memcpy(&height, imageData.substr(ptr, 2).c_str(), 2); ptr += 8;
+		BMPHeader bmpHeader = BMPHeader::CreateBMPHeader(0,0);
+
+		//pixel array optimisation. We don't need to create a new one if the current one is the same size.
+		uint16_t lastWidth = 0;
+		uint16_t lastHeight = 0;
+
+		for (int i = 0; i < imageAmount; i++) {
+			ptr = images[i].imageOffset; //Set ptr to image start
+			imageOffsetEnd = images[i].imageOffset + images[i].imageSize; //set image offset end to image end
+
+			memcpy(&width, binData.substr(ptr, 2).c_str(), 2); ptr += 2;
+			memcpy(&height, binData.substr(ptr, 2).c_str(), 2); ptr += 8;
 
 			pixelAmount = width * height;
 
-			pixels = new uint32_t [pixelAmount]; //NEW PIXEL POINTER
+			if (lastWidth == width && lastHeight == height) {
+				std::fill_n(pixels, pixelAmount, 0x00000000); // RRGGBBAA
+			}
+			else {
+				if (pixels != nullptr) {
+					delete[] pixels;
+					pixels = nullptr;
+				}
 
-			std::fill_n(pixels, pixelAmount, 0x000000ff); // RRGGBBAA
+				pixels = new uint32_t[pixelAmount]; //NEW PIXEL POINTER
+				std::fill_n(pixels, pixelAmount, 0x00000000); // RRGGBBAA
+			}
+
+			lastWidth = width;
+			lastHeight = height;
 
 			pixelsPtr = 0;
-			while (ptr < images[i].imageSize) {
-				if ((unsigned char)(commandMask & imageData[ptr]) > 0) {
+			while (ptr < imageOffsetEnd) {
+				if ((unsigned char)(commandMask & binData[ptr]) > 0) {
 					//IS A COMMAND
-					pixelsPtr += (imageData[ptr] & valueMask);
+					pixelsPtr += (binData[ptr] & valueMask);
 					ptr++;
-					//lastWasCommand = true;
 				}
 				else {
-					//if (lastWasCommand) {
 					//THIS MIGHT BE ROW FILL OR PIXEL COUNT
-					BytesToParse = (unsigned char) imageData[ptr];
+					BytesToParse = (unsigned char)binData[ptr];
 					ptr++;
 
 					if (BytesToParse == 0x00) { //Use command from different offset!
-						/*red = ((uint8_t)imageData[ptr]);
-						green = ((uint8_t)imageData[ptr+1]);
-						blue = ((uint8_t)imageData[ptr+2]);
-						color = 0;
-						color = (color + (red)) << 8;
-						color = (color + (green)) << 8;
-						color = (color + (blue)) << 8;
-						color = color + (0xff);
-						ptr += 4;
 
-						if (pixelsPtr + width > pixelAmount) { 
-							//End of the pixels array!
-							//Poormans anti overflow
-
-							if (pixelsPtr > pixelAmount) {
-								break; //Sometimes pixelsPtr is already overflowed.
-							}
-							uint32_t amount = pixelAmount - pixelsPtr;
-							std::fill_n(&pixels[pixelsPtr], amount, color);
-							break;
-						}
-						else {
-							std::fill_n(&pixels[pixelsPtr], width, color);
-						}
-						
-						pixelsPtr += width;
-						*/
-						offset = *(uint32_t *)&imageData[ptr];
-						offset = (images[i].imageOffset + ptr) - offset;
+						offset = *(uint32_t *)&binData[ptr];
+						offset = ptr - offset;
 
 						if ((unsigned char)(commandMask & binData[offset]) > 0) {
 							//IS A COMMAND
@@ -174,6 +181,7 @@ public:
 						}
 						else {
 							BytesToParse = (unsigned char)binData[offset];
+							offset++;
 
 							for (int j = 0; j < BytesToParse; j++) {
 
@@ -182,9 +190,10 @@ public:
 									break;
 								}
 
-								color = palette.color[(unsigned char)binData[offset + j]];
-								std::reverse((char *)&color, ((char *)&color) + 4); //Flip to be bmp compatible - little eidian.
-								pixels[pixelsPtr] = color;
+								//color = palette.color[(unsigned char)binData[offset + j]];
+								//std::reverse((char *)&color, ((char *)&color) + 4); //Flip to be bmp compatible - little eidian.
+								//pixels[pixelsPtr] = color;
+								pixels[pixelsPtr] = palette.color[(unsigned char)binData[offset + j]];
 								pixelsPtr++;
 							}
 						}
@@ -200,9 +209,10 @@ public:
 								break;
 							}
 
-							color = palette.color[(unsigned char)imageData[ptr + j]];
-							std::reverse((char *)&color, ((char *)&color) + 4); //Flip to be bmp compatible - little eidian.
-							pixels[pixelsPtr] = color;
+							//color = palette.color[(unsigned char)binData[ptr + j]];
+							//std::reverse((char *)&color, ((char *)&color) + 4); //Flip to be bmp compatible - little eidian.
+							//pixels[pixelsPtr] = color;
+							pixels[pixelsPtr] = palette.color[(unsigned char)binData[ptr + j]];
 							pixelsPtr++;
 						}
 
@@ -217,31 +227,26 @@ public:
 			string resName = resData.name;
 			std::replace(resName.begin(), resName.end(), '.', '_');
 			
-			BMPHeader header = BMPHeader::CreateBMPHeader(width, height);
 			//BMPHeader *addr = &header;
+			bmpHeader.UpdateBMPHeader(width, height);
 
 			ofstream newBMPFile(outputPath + "//" + resName + "_" + to_string(i) + ".bmp", ios::binary);
-			string headerStr = header.ToString();
+			string headerStr = bmpHeader.ToString();
 			newBMPFile.write(headerStr.c_str(), headerStr.size()); //Write the bmp header.
 
 			for (int y = height - 1; y >= 0; y--) {
-				for (int x = 0; x < width; x++) {
-					newBMPFile.write((char *) &pixels[y*width + x], 4);
-				}
+				newBMPFile.write((char *) &pixels[y*width], width * 4);
 			}
-
-			//string fileData((char *)pixels, pixelAmount * 4);
-
-			//for (int i = 0; i < pixelAmount; i++) {
-			//newBMPFile << fileData;
-			//}
 
 			newBMPFile.flush();
 			newBMPFile.close();
 
-			delete[] pixels; //DEL PIXEL POINTER			
+			//delete[] pixels; //DEL PIXEL POINTER			
 		}
 
+		if (pixels != nullptr) {
+			delete[] pixels; //DEL PIXEL POINTER	
+		}
 	}
 
 	const std::string &GetBinData() {
@@ -284,7 +289,8 @@ public:
 			return;
 		}
 
-		memcpy(&palette, paletteData.c_str(), sizeof(Palette)); //Copy the palette to the variable.
+		palette.SetData(paletteData);
+		palette.Flip(); //Flips to little eidian.
 
 		DebugConsole::Log("Palette loaded successfuly");
 	}

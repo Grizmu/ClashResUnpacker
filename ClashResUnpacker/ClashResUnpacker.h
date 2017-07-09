@@ -41,6 +41,7 @@ public:
 		unpackers[2]->Unpack(exePath.string() + "\\NORMAL.RES", outputPath.string());
 		unpackers[3]->Unpack(exePath.string() + "\\MINIMUM.RES", outputPath.string());
 	
+		DebugConsole::Log("Unpack completed!");
 		//unpackers[0]->Unpack(exePath.string() + "\\NORMAL.RES", outputPath.string());
 	}
 
@@ -49,7 +50,7 @@ public:
 		cout << "Supported files:" << endl;
 		cout << "MAXIMUM.RES - 80%" << endl;
 		cout << "NORMAL.RES  - 95%" << endl;
-		cout << "MINIMUM.RES - 70%" << endl;
+		cout << "MINIMUM.RES - 90%" << endl;
 		//cout << "GFX3.RES    - 0%" << endl;
 		//cout << "IS.RES      - 0%" << endl;
 		//cout << "MAPS.RES    - 0%" << endl;

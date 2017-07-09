@@ -56,6 +56,13 @@ struct BMPHeader
 		return header;
 	}
 
+	void UpdateBMPHeader(int width, int height) {
+		bfSize = width * height * 4 + 0x00000046;
+		biWidth = width;
+		biHeight = height;
+		biSizeImage = width * height * 4;
+	}
+
 	std::string ToString() {
 		char charData [100];
 		std::string data;
