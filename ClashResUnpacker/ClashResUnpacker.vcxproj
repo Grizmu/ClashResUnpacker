@@ -155,6 +155,7 @@
     <ClInclude Include="Color.h" />
     <ClInclude Include="DefaultUnpacker.h" />
     <ClInclude Include="MaximumUnpacker.h" />
+    <ClInclude Include="MinimumUnpacker.h" />
     <ClInclude Include="MusicUnpacker.h" />
     <ClInclude Include="NormalUnpacker.h" />
     <ClInclude Include="resource.h" />

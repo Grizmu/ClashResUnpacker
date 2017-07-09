@@ -5,6 +5,7 @@
 #include <fstream>
 #include <vector>
 #include <sstream>
+#include "S32Unpacker.h"
 
 using namespace std;
 using namespace std::experimental;
@@ -76,6 +77,11 @@ public:
 			ExtractPCX(data, positions[i], pcxHeaderData);
 		}
 
+		//Unpack s32.
+		S32Unpacker s32Unpacker;
+		s32Unpacker.UnpackFile(data, outputPath);
+		cout << "S32 unpack completed" << endl;
+
 		DebugConsole::Log("");
 		DebugConsole::Log("Maximum unpacking complete.");
 	}
@@ -112,7 +118,7 @@ public:
 		message += "PalType:"	+ to_string(pcxHeader.PaletteType) + " ";       /* Palette Type */				//WORD	
 		message += "HScSize:"	+ to_string(pcxHeader.HorzScreenSize) + " ";    /* Horizontal Screen Size */	//WORD	
 		message += "VScSize:"	+ to_string(pcxHeader.VertScreenSize) + " ";    /* Vertical Screen Size */		//WORD	
-		message += "Res[54] \n";													/* Reserved (Always 0) */	//BYTE	
+		message += "Res[54]";													/* Reserved (Always 0) */	//BYTE	
 
 		DebugConsole::Log(message);
 	}

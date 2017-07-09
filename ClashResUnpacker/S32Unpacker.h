@@ -107,6 +107,7 @@ public:
 		uint8_t green;
 		uint8_t blue;
 
+		size_t offset;
 		for (int i = 0; i < imageAmount; i++) {
 			imageData = binData.substr(images[i].imageOffset, images[i].imageSize);
 
@@ -136,8 +137,8 @@ public:
 					BytesToParse = (unsigned char) imageData[ptr];
 					ptr++;
 
-					if (BytesToParse == 0x00) { //ROW FILL!
-						red = ((uint8_t)imageData[ptr]);
+					if (BytesToParse == 0x00) { //Use command from different offset!
+						/*red = ((uint8_t)imageData[ptr]);
 						green = ((uint8_t)imageData[ptr+1]);
 						blue = ((uint8_t)imageData[ptr+2]);
 						color = 0;
@@ -163,6 +164,33 @@ public:
 						}
 						
 						pixelsPtr += width;
+						*/
+						offset = *(uint32_t *)&imageData[ptr];
+						offset = (images[i].imageOffset + ptr) - offset;
+
+						if ((unsigned char)(commandMask & binData[offset]) > 0) {
+							//IS A COMMAND
+							pixelsPtr += (binData[offset] & valueMask);
+						}
+						else {
+							BytesToParse = (unsigned char)binData[offset];
+
+							for (int j = 0; j < BytesToParse; j++) {
+
+								//Poormans anti overflow
+								if (pixelsPtr >= pixelAmount) {
+									break;
+								}
+
+								color = palette.color[(unsigned char)binData[offset + j]];
+								std::reverse((char *)&color, ((char *)&color) + 4); //Flip to be bmp compatible - little eidian.
+								pixels[pixelsPtr] = color;
+								pixelsPtr++;
+							}
+						}
+
+						ptr += 4;
+
 					}
 					else { //PIXEL COUNT
 						for (int j = 0; j < BytesToParse; j++) {

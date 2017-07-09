@@ -24,11 +24,12 @@ public:
 
 		//Init unpackers
 
-		unpackers = vector<Unpacker_sp>(3);
+		unpackers = vector<Unpacker_sp>(4);
 		unpackers[0] = UnpackerFactory::CreateUnpacker(Unpacker::UnpackerType::UP_MAXIMUM);
 		unpackers[1] = UnpackerFactory::CreateUnpacker(Unpacker::UnpackerType::UP_MUSIC);
 		unpackers[2] = UnpackerFactory::CreateUnpacker(Unpacker::UnpackerType::UP_NORMAL);
-		
+		unpackers[3] = UnpackerFactory::CreateUnpacker(Unpacker::UnpackerType::UP_MINIMUM);
+
 		//unpackers = vector<Unpacker_sp>(1);
 		//unpackers[0] = UnpackerFactory::CreateUnpacker(Unpacker::UnpackerType::UP_NORMAL);
 	}
@@ -38,16 +39,17 @@ public:
 		unpackers[0]->Unpack(exePath.string() + "\\MAXIMUM.RES",outputPath.string());
 		unpackers[1]->Unpack(exePath.string() + "\\MUSIC.RES",	outputPath.string());
 		unpackers[2]->Unpack(exePath.string() + "\\NORMAL.RES", outputPath.string());
+		unpackers[3]->Unpack(exePath.string() + "\\MINIMUM.RES", outputPath.string());
 	
 		//unpackers[0]->Unpack(exePath.string() + "\\NORMAL.RES", outputPath.string());
 	}
 
 	void ShowSplash() {
-		cout << "Clash Res Unpacker v0.25 by Griz" << endl << endl;
+		cout << "Clash Res Unpacker v0.5 by Griz" << endl << endl;
 		cout << "Supported files:" << endl;
-		cout << "MAXIMUM.RES - 60%" << endl;
-		cout << "NORMAL.RES  - 80%" << endl;
-		//cout << "MINIMUM.RES - 0%" << endl;
+		cout << "MAXIMUM.RES - 80%" << endl;
+		cout << "NORMAL.RES  - 95%" << endl;
+		cout << "MINIMUM.RES - 70%" << endl;
 		//cout << "GFX3.RES    - 0%" << endl;
 		//cout << "IS.RES      - 0%" << endl;
 		//cout << "MAPS.RES    - 0%" << endl;

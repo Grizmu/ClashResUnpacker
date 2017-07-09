@@ -10,15 +10,15 @@
 using namespace std;
 using namespace std::experimental;
 
-class NormalUnpacker : public Unpacker {
+class MinimumUnpacker : public Unpacker {
 private:
 	string pcxFileName = "resource";
 	filesystem::v1::path outputPath;
 
 public:
 	
-	NormalUnpacker():
-	Unpacker(UnpackerType::UP_NORMAL){
+	MinimumUnpacker():
+	Unpacker(UnpackerType::UP_MINIMUM){
 
 	}
 
@@ -31,7 +31,7 @@ public:
 			return;
 		}
 
-		outputPath = CreateOutputFolder(outputDir + "\\normal");
+		outputPath = CreateOutputFolder(outputDir + "\\minimum");
 
 		string data;
 		size_t size;

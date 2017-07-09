@@ -59,5 +59,8 @@
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="MinimumUnpacker.h">
+      <Filter>Header Files\Unpackers</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

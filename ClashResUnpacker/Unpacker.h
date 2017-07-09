@@ -7,6 +7,7 @@ public:
 		UP_MAXIMUM,
 		UP_NORMAL,
 		UP_MUSIC,
+		UP_MINIMUM,
 		UP_UNKNOWN
 	};
 private:
