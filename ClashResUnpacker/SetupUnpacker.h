@@ -26,27 +26,24 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include <filesystem>
 #include <fstream>
 #include <vector>
+#include <sstream>
 #include "WavUnpacker.h"
 
 using namespace std;
 using namespace std::experimental;
 
-
-//MUSIC.RES data structure in bytes:
-// 18(name) + 4(offset) + 4(length)
-
-class MusicUnpacker : public Unpacker {
+class SetupUnpacker : public Unpacker {
 private:
 	filesystem::v1::path outputPath;
 
 public:
+	
+	SetupUnpacker():
+	Unpacker(UnpackerType::UP_SETUP){
 
-	MusicUnpacker() :
-		Unpacker(UnpackerType::UP_MUSIC) {
 	}
 
 	virtual void Unpack(std::string file, std::string outputDir) {
-
 		if (FileExists(file)) {
 			DebugConsole::Log("Unpacking " + file);
 		}
@@ -55,7 +52,7 @@ public:
 			return;
 		}
 
-		filesystem::v1::path wavOutputPath = CreateOutputFolder(outputDir + "\\music");
+		outputPath = CreateOutputFolder(outputDir + "\\setup");
 
 		string data;
 		size_t size;
@@ -63,8 +60,8 @@ public:
 		LoadFileData(data, file, size);
 
 		WavUnpacker wavUnpacker;
-		wavUnpacker.UnpackFile(data, wavOutputPath, false);
+		wavUnpacker.UnpackFile(data, outputPath, false);
 
-		cout << "MUSIC.RES unpack completed." << endl;
+		cout << "SETUP.RES unpack completed." << endl;
 	}
 };

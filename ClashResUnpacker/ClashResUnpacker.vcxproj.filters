@@ -23,9 +23,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="dr_pcx.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="ClashResUnpacker.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -56,10 +53,37 @@
     <ClInclude Include="S32Unpacker.h">
       <Filter>Header Files\Unpackers</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="MinimumUnpacker.h">
+      <Filter>Header Files\Unpackers</Filter>
+    </ClInclude>
+    <ClInclude Include="WavUnpacker.h">
+      <Filter>Header Files\Unpackers</Filter>
+    </ClInclude>
+    <ClInclude Include="PcxUnpacker.h">
+      <Filter>Header Files\Unpackers</Filter>
+    </ClInclude>
+    <ClInclude Include="Gfx3Unpacker.h">
+      <Filter>Header Files\Unpackers</Filter>
+    </ClInclude>
+    <ClInclude Include="SetupUnpacker.h">
+      <Filter>Header Files\Unpackers</Filter>
+    </ClInclude>
+    <ClInclude Include="InfoAngUnpacker.h">
+      <Filter>Header Files\Unpackers</Filter>
+    </ClInclude>
+    <ClInclude Include="InfoPolUnpacker.h">
+      <Filter>Header Files\Unpackers</Filter>
+    </ClInclude>
+    <ClInclude Include="MapsUnpacker.h">
+      <Filter>Header Files\Unpackers</Filter>
+    </ClInclude>
+    <ClInclude Include="MapUnpacker.h">
+      <Filter>Header Files\Unpackers</Filter>
+    </ClInclude>
+    <ClInclude Include="InfostreamUnpacker.h">
+      <Filter>Header Files\Unpackers</Filter>
+    </ClInclude>
+    <ClInclude Include="IsUnpacker.h">
       <Filter>Header Files\Unpackers</Filter>
     </ClInclude>
   </ItemGroup>

@@ -154,16 +154,24 @@
     <ClInclude Include="ClashResUnpacker.h" />
     <ClInclude Include="Color.h" />
     <ClInclude Include="DefaultUnpacker.h" />
+    <ClInclude Include="Gfx3Unpacker.h" />
+    <ClInclude Include="InfoAngUnpacker.h" />
+    <ClInclude Include="InfoPolUnpacker.h" />
+    <ClInclude Include="InfostreamUnpacker.h" />
+    <ClInclude Include="IsUnpacker.h" />
+    <ClInclude Include="MapsUnpacker.h" />
+    <ClInclude Include="MapUnpacker.h" />
     <ClInclude Include="MaximumUnpacker.h" />
     <ClInclude Include="MinimumUnpacker.h" />
     <ClInclude Include="MusicUnpacker.h" />
     <ClInclude Include="NormalUnpacker.h" />
-    <ClInclude Include="resource.h" />
+    <ClInclude Include="PcxUnpacker.h" />
     <ClInclude Include="S32Unpacker.h" />
+    <ClInclude Include="SetupUnpacker.h" />
     <ClInclude Include="Unpacker.h" />
     <ClInclude Include="UnpackerFactory.h" />
     <ClInclude Include="Utils.h" />
-    <ClInclude Include="dr_pcx.h" />
+    <ClInclude Include="WavUnpacker.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
