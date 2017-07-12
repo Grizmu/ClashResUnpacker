@@ -56,7 +56,7 @@ public:
 		size_t pos = data.find(lookFor, 0);
 		while (pos != std::string::npos)
 		{			
-			for (int i = 4; i < 14; i++) {
+			for (int i = 3; i < 15; i++) {
 				if (data[pos + i] == 0x01) {
 					isValid = true;
 					pos = pos - (14 - i); //Move the position to the resData start.
@@ -103,10 +103,11 @@ public:
 	}
 
 	void UnpackIs(int id, const std::string &data, const InfostreamResData &isData) {
+
 		string isName(isData.name);
 		cout << ("Extracting " + isName + "...");
 
-		std::experimental::filesystem::v1::path isOutputPath;
+		std::experimental::filesystem::v1::path isOutputPath = outputPath.string() + "\\" + isName;
 
 		ofstream newIsFile(isOutputPath.string(), ios::binary);
 
