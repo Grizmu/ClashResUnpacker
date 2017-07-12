@@ -64,15 +64,15 @@ public:
 
 	void Unpack() {
 		
-		//unpackers[0]->Unpack(exePath.string() + "\\MUSIC.RES",	outputPath.string());
-		//unpackers[1]->Unpack(exePath.string() + "\\INFOANG.RES", outputPath.string());
-		//unpackers[2]->Unpack(exePath.string() + "\\INFOPOL.RES", outputPath.string());
-		//unpackers[3]->Unpack(exePath.string() + "\\MAPS.RES", outputPath.string());
-		//unpackers[4]->Unpack(exePath.string() + "\\SETUP.RES", outputPath.string());
-		//unpackers[5]->Unpack(exePath.string() + "\\GFX3.RES", outputPath.string());
-		//unpackers[6]->Unpack(exePath.string() + "\\MINIMUM.RES", outputPath.string());
-		//unpackers[7]->Unpack(exePath.string() + "\\NORMAL.RES", outputPath.string());
-		//unpackers[8]->Unpack(exePath.string() + "\\MAXIMUM.RES",outputPath.string());
+		unpackers[0]->Unpack(exePath.string() + "\\MUSIC.RES",	outputPath.string());
+		unpackers[1]->Unpack(exePath.string() + "\\INFOANG.RES", outputPath.string());
+		unpackers[2]->Unpack(exePath.string() + "\\INFOPOL.RES", outputPath.string());
+		unpackers[3]->Unpack(exePath.string() + "\\MAPS.RES", outputPath.string());
+		unpackers[4]->Unpack(exePath.string() + "\\SETUP.RES", outputPath.string());
+		unpackers[5]->Unpack(exePath.string() + "\\GFX3.RES", outputPath.string());
+		unpackers[6]->Unpack(exePath.string() + "\\MINIMUM.RES", outputPath.string());
+		unpackers[7]->Unpack(exePath.string() + "\\NORMAL.RES", outputPath.string());
+		unpackers[8]->Unpack(exePath.string() + "\\MAXIMUM.RES",outputPath.string());
 		unpackers[9]->Unpack(exePath.string() + "\\IS.RES", outputPath.string());
 
 		DebugConsole::Log("Unpack completed!");
