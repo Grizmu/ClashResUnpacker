@@ -35,7 +35,7 @@ using namespace std::experimental;
 class SetupUnpacker : public Unpacker {
 private:
 	filesystem::v1::path outputPath;
-
+	filesystem::v1::path wavOutputPath;
 public:
 	
 	SetupUnpacker():
@@ -53,6 +53,7 @@ public:
 		}
 
 		outputPath = CreateOutputFolder(outputDir + "\\setup");
+		wavOutputPath = CreateOutputFolder(outputDir + "\\setup\\Sounds");
 
 		string data;
 		size_t size;
@@ -60,7 +61,7 @@ public:
 		LoadFileData(data, file, size);
 
 		WavUnpacker wavUnpacker;
-		wavUnpacker.UnpackFile(data, outputPath, false);
+		wavUnpacker.UnpackFile(data, wavOutputPath);
 
 		cout << "SETUP.RES unpack completed." << endl;
 	}

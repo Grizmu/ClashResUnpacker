@@ -31,8 +31,6 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 using namespace std::experimental;
 using namespace std;
 
-//#define USE_MAGICK
-
 class ClashResUnpacker {
 private:
 	bool convertToPNG = true;
@@ -46,9 +44,6 @@ public:
 		ShowSplash();
 		InitPaths();
 		InitUnpackers();
-#ifdef USE_MAGICK
-		InitImageMagick(argv);
-#endif
 	}
 
 	void Unpack() {
@@ -125,31 +120,4 @@ private:
 			//DebugConsole::Log("Created output directory " + folderName);
 		}
 	}
-
-#ifdef USE_MAGICK
-	void InitImageMagick(char **argv) {
-		DebugConsole::Log("");
-
-		cout << ("Initializing Imagemagick library...") << endl;
-
-		InitImageMagickCoderModule(argv);
-
-		Magick::InitializeMagick(*argv);
-		cout << " Done." << endl;
-
-		TestImageMagick();
-	}
-
-	void InitImageMagickCoderModule(char **argv) {
-		std::string path(argv[0]);
-		size_t slashPos = path.find_last_of('\\');
-		if (slashPos != path.npos) {
-			path = path.substr(0, slashPos + 1);
-		}
-
-		_putenv_s("MAGICK_CODER_MODULE_PATH", path.c_str());
-		cout << "Coder Path : " << path.c_str() << endl;
-	}
-
-#endif
 };

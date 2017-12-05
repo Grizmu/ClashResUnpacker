@@ -97,9 +97,10 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>D:\Projects\Programming\Visual Studio C++\Open sources\ImageMagick-7.0.6.0\include;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\Projects\Programming\Visual Studio C++\Open sources\ImageMagick-7.0.6.0\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(ProjectDir)..\libpng\;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)..\libpng\;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
+    <ExecutablePath>$(ProjectDir)..\libpng\;$(ExecutablePath)</ExecutablePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugMagick|Win32'">
     <LinkIncremental>true</LinkIncremental>
@@ -115,8 +116,9 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>D:\Projects\Programming\C++_Libraries\DevIL-SDK-1.7.8\DevIL-SDK-x86-1.7.8\include;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\Projects\Programming\C++_Libraries\DevIL-SDK-1.7.8\DevIL-SDK-x86-1.7.8\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(ProjectDir)..\libpng\;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)..\libpng\;$(LibraryPath)</LibraryPath>
+    <ExecutablePath>$(ProjectDir)..\libpng\;$(ExecutablePath)</ExecutablePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -132,7 +134,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>zlib.lib;libpng16.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugMagick|Win32'">
@@ -190,7 +192,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>DevIL.lib;ILU.lib;ILUT.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>zlib.lib;libpng16.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">

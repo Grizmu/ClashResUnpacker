@@ -121,7 +121,8 @@ public:
 		//BMP Conversion
 		string finalPath = GetStringOutputPath(s32Data);
 		CreateOutputFolder(finalPath);
-		s32File.ConvertToBMP(s32Data.name, finalPath, palette);
+		//s32File.ConvertToBMP(s32Data.name, finalPath, palette);
+		s32File.ConvertToPNG(s32Data.name, finalPath, palette);
 
 		cout << " success!" << endl;
 	}
