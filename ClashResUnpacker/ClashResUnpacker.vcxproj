@@ -232,7 +232,6 @@
     <ClInclude Include="Palette.h" />
     <ClInclude Include="PcxUnpacker.h" />
     <ClInclude Include="S32File.h" />
-    <ClInclude Include="S32ToBMPConverter.h" />
     <ClInclude Include="S32Unpacker.h" />
     <ClInclude Include="SetupUnpacker.h" />
     <ClInclude Include="Unpacker.h" />

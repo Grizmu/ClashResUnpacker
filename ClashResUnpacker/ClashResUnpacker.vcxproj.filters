@@ -19,9 +19,6 @@
     <Filter Include="Header Files\ResFileUnpackers">
       <UniqueIdentifier>{34ae4657-eb1a-423f-94a4-8aa515c32cfc}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Converters">
-      <UniqueIdentifier>{4c7ee519-d695-494b-90bf-f2f466b9b3f0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Formats">
       <UniqueIdentifier>{f28a631c-f0d8-407d-8cc5-694f3aac3d8a}</UniqueIdentifier>
     </Filter>
@@ -97,9 +94,6 @@
     </ClInclude>
     <ClInclude Include="FormatUnpacker.h">
       <Filter>Header Files\FormatUnpackers</Filter>
-    </ClInclude>
-    <ClInclude Include="S32ToBMPConverter.h">
-      <Filter>Header Files\Converters</Filter>
     </ClInclude>
     <ClInclude Include="Palette.h">
       <Filter>Header Files\Formats</Filter>

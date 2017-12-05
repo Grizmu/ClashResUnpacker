@@ -4,12 +4,6 @@
 #include "Palette.h"
 
 #include "Utils.h"
-struct S32ResData {
-	char name[14];
-	int32_t unk_value;
-	int32_t offset;
-	int32_t size;
-};
 
 struct S32Image {
 	uint32_t imageOffset;
@@ -17,7 +11,7 @@ struct S32Image {
 };
 
 class S32File {
-	S32ResData resData;
+	//S32ResData resData;
 	std::string binData;
 	std::vector<S32Image> images;
 
@@ -28,9 +22,10 @@ public:
 
 	}
 
-	S32File(const std::string &data, const S32ResData &s32ResData) {
-		resData = s32ResData;
-		binData = data.substr(s32ResData.offset, s32ResData.size);
+	S32File(std::string &data) {
+		//resData = s32ResData;
+		//binData = data.substr(s32ResData.offset, s32ResData.size);
+		binData = data;
 
 		//Count and find images
 		std::list<int32_t> imageOffsets(0);
@@ -56,7 +51,7 @@ public:
 				imageAmount++;
 			}
 		}
-		imageSizes.push_back(s32ResData.size - lastOffset);
+		imageSizes.push_back(binData.length() - lastOffset);
 
 		images = std::vector<S32Image>(imageAmount);
 
@@ -72,7 +67,12 @@ public:
 		isUsable = true;
 	}
 
-	void ConvertToBMP(const std::string &outputPath, Palette &palette) {
+	void SaveToFile(string path) {
+		ofstream newS32File(path, ios::binary);
+		newS32File << binData;
+	}
+
+	void ConvertToBMP(const std::string fileName, std::string &outputPath, Palette &palette) {
 		if (!isUsable) {
 			return;
 		}
@@ -201,7 +201,7 @@ public:
 			}
 
 			//Export result to file.
-			string resName = resData.name;
+			string resName = fileName;
 			std::replace(resName.begin(), resName.end(), '.', '_');
 
 			//BMPHeader *addr = &header;

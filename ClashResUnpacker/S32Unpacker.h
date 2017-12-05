@@ -31,7 +31,15 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include "Palette.h"
 #include "S32File.h"
 
+struct S32ResData {
+	char name[14];
+	int32_t unk_value;
+	int32_t offset;
+	int32_t size;
+};
+
 class S32Unpacker : FormatUnpacker {
+
 private:
 	bool unpackRawS32 = false;
 
@@ -41,34 +49,12 @@ public:
 	filesystem::v1::path outputPath;
 	Palette palette;
 
-	void LoadPalette() {
-		std::string palettePath = GetExePath().string() + "\\palette.data";
-		std::string paletteData;
-		size_t paletteDataSize;
-
-		if (!FileExists(palettePath)) {
-			DebugConsole::Log("Couldn't find palette file! " + palettePath);
-			return;
-		}
-
-		LoadFileData(paletteData, palettePath, paletteDataSize);
-
-		if (paletteDataSize != 1024) {
-			DebugConsole::Log("Wrong palette data size! Expected 1024, got " + paletteDataSize);
-			return;
-		}
-
-		palette.SetData(paletteData);
-		palette.Flip(); //Flips to little eidian.
-
-		DebugConsole::Log("Palette loaded successfuly");
-	}
-
 	void UnpackFile(const std::string &data, filesystem::v1::path outputPath) {
 		this->outputPath = outputPath;
 
 		//Load the palette;
-		LoadPalette();
+		palette.LoadDataFromFile(GetExePath().string() + "\\palette.data");
+		palette.Flip(); //Flips to little eidian.
 
 		//Find all .s32 occurences.
 		char dataSize = 14+4+4+4;
@@ -126,25 +112,26 @@ public:
 	}
 
 	void UnpackS32(const std::string &data, const S32ResData &s32Data) {
-		S32File s32File(data, s32Data);
+		S32File s32File(data.substr(s32Data.offset, s32Data.size));
 
 		if (unpackRawS32) {
-			const std::string &binData = s32File.GetBinData();
-			string fileName = s32Data.name;
-			ofstream newS32File(outputPath.string() + "//" + fileName, ios::binary);
-			newS32File << binData;
+			s32File.SaveToFile(outputPath.string() + "//" + s32Data.name);
 		}
 
-		string folderName(s32Data.name);
-		cout << ("Converting " + folderName + "...");
-		std:replace(folderName.begin(), folderName.end(), '.', '_');
-
-		std::experimental::filesystem::v1::path s32OutputPath = outputPath.string() + "\\" + folderName;
-
-		CreateOutputFolder(s32OutputPath.string());
-		s32File.ConvertToBMP(s32OutputPath.string(), palette);
+		//BMP Conversion
+		string finalPath = GetStringOutputPath(s32Data);
+		CreateOutputFolder(finalPath);
+		s32File.ConvertToBMP(s32Data.name, finalPath, palette);
 
 		cout << " success!" << endl;
-		//std::cout << setw(14) << s32Data.name << " : " << std::hex << setw(2) << (int16_t)binData[4096] << " " << (int16_t)binData[4097] << " " << (int16_t)binData[4098] << std::dec << std::endl;
+	}
+
+	string GetStringOutputPath(const S32ResData &s32Data) {
+		string folderName(s32Data.name);
+		cout << ("Converting " + folderName + "...");
+	std:replace(folderName.begin(), folderName.end(), '.', '_');
+
+		std::experimental::filesystem::v1::path s32OutputPath = outputPath.string() + "\\" + folderName;
+		return s32OutputPath.string();
 	}
 };
