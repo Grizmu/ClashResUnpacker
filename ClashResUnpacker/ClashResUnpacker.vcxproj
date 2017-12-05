@@ -1,6 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="DebugMagick|Win32">
+      <Configuration>DebugMagick</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="DebugMagick|x64">
+      <Configuration>DebugMagick</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
       <Platform>Win32</Platform>
@@ -31,6 +39,12 @@
     <PlatformToolset>v140_xp</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugMagick|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140_xp</PlatformToolset>
+    <CharacterSet>NotSet</CharacterSet>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
@@ -39,6 +53,12 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugMagick|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v140</PlatformToolset>
@@ -59,10 +79,16 @@
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DebugMagick|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DebugMagick|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -71,16 +97,26 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>D:\Projects\Programming\Visual Studio C++\Open sources\ImageMagick-7.0.6-0\ImageMagick\Magick++\lib;D:\Projects\Programming\Visual Studio C++\Open sources\ImageMagick-7.0.6-0\ImageMagick;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\Projects\Programming\Visual Studio C++\Open sources\ImageMagick-7.0.6-0\VisualMagick\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>D:\Projects\Programming\Visual Studio C++\Open sources\ImageMagick-7.0.6.0\include;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\Projects\Programming\Visual Studio C++\Open sources\ImageMagick-7.0.6.0\lib;$(LibraryPath)</LibraryPath>
+    <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugMagick|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <IncludePath>D:\Projects\Programming\Visual Studio C++\Open sources\ImageMagick-7.0.6.0\include;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\Projects\Programming\Visual Studio C++\Open sources\ImageMagick-7.0.6.0\lib;$(LibraryPath)</LibraryPath>
+    <OutDir>$(SolutionDir)$(Configuration)\Bin\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugMagick|x64'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>D:\Projects\Programming\Visual Studio C++\Open sources\ImageMagick-7.0.6-0\ImageMagick\Magick++\lib;D:\Projects\Programming\Visual Studio C++\Open sources\ImageMagick-7.0.6-0\ImageMagick;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\Projects\Programming\Visual Studio C++\Open sources\ImageMagick-7.0.6-0\VisualMagick\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>D:\Projects\Programming\C++_Libraries\DevIL-SDK-1.7.8\DevIL-SDK-x86-1.7.8\include;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\Projects\Programming\C++_Libraries\DevIL-SDK-1.7.8\DevIL-SDK-x86-1.7.8\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -99,7 +135,34 @@
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugMagick|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>CORE_RL_Magick++_.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugMagick|x64'">
     <ClCompile>
       <PrecompiledHeader>
       </PrecompiledHeader>
@@ -127,7 +190,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>DevIL.lib;ILU.lib;ILUT.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -154,6 +217,7 @@
     <ClInclude Include="ClashResUnpacker.h" />
     <ClInclude Include="Color.h" />
     <ClInclude Include="DefaultUnpacker.h" />
+    <ClInclude Include="FormatUnpacker.h" />
     <ClInclude Include="Gfx3Unpacker.h" />
     <ClInclude Include="InfoAngUnpacker.h" />
     <ClInclude Include="InfoPolUnpacker.h" />
@@ -165,7 +229,10 @@
     <ClInclude Include="MinimumUnpacker.h" />
     <ClInclude Include="MusicUnpacker.h" />
     <ClInclude Include="NormalUnpacker.h" />
+    <ClInclude Include="Palette.h" />
     <ClInclude Include="PcxUnpacker.h" />
+    <ClInclude Include="S32File.h" />
+    <ClInclude Include="S32ToBMPConverter.h" />
     <ClInclude Include="S32Unpacker.h" />
     <ClInclude Include="SetupUnpacker.h" />
     <ClInclude Include="Unpacker.h" />

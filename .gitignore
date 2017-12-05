@@ -6,3 +6,15 @@
 /Release
 /ClashResUnpacker/Release
 /ClashResUnpacker/*.aps
+/ClashResUnpacker/DebugMagick/*.pdb
+/ClashResUnpacker/DebugMagick/*.idb
+/ClashResUnpacker/x64/Debug/*.pdb
+/x64/Debug/*.pdb
+/ClashResUnpacker/x64/Debug/ClashResUnpacker.tlog/*.tlog
+/ClashResUnpacker/x64/Debug/ClashResUnpacker.tlog/*.lastbuildstate
+/ClashResUnpacker/x64
+/ClashResUnpacker.sdf
+/ClashResUnpacker/T
+/ClashResUnpacker/D
+/ClashResUnpacker/F
+/x64

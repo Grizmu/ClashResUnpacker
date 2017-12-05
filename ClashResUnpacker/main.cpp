@@ -23,14 +23,12 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #include <iostream>
 
-#include "Utils.h"
 #include "ClashResUnpacker.h"
 
 //_____________________________________________________________________________
 int main(int argc, char ** argv) {
 
-	ClashResUnpacker unpacker;
-	unpacker.ShowSplash();
+	ClashResUnpacker unpacker(argc, argv);
 
 	DebugConsole::Log("Press any key to begin unpacking...");
 	getchar();

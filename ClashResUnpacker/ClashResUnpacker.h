@@ -31,39 +31,27 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 using namespace std::experimental;
 using namespace std;
 
+//#define USE_MAGICK
+
 class ClashResUnpacker {
 private:
+	bool convertToPNG = true;
 	filesystem::v1::path exePath;
 	filesystem::v1::path outputPath;
 
 	vector<Unpacker_sp> unpackers;
 public:
 
-	ClashResUnpacker() {
+	ClashResUnpacker(int argc, char ** argv) {
+		ShowSplash();
 		InitPaths();
-
-		DebugConsole::LogDebug("Exe path: " + exePath.string());
-
-		//Init unpackers
-
-		unpackers = vector<Unpacker_sp>(10);
-		unpackers[0] = UnpackerFactory::CreateUnpacker(Unpacker::UnpackerType::UP_MUSIC);
-		unpackers[1] = UnpackerFactory::CreateUnpacker(Unpacker::UnpackerType::UP_INFOANG);
-		unpackers[2] = UnpackerFactory::CreateUnpacker(Unpacker::UnpackerType::UP_INFOPOL);
-		unpackers[3] = UnpackerFactory::CreateUnpacker(Unpacker::UnpackerType::UP_MAPS);
-		unpackers[4] = UnpackerFactory::CreateUnpacker(Unpacker::UnpackerType::UP_SETUP);
-		unpackers[5] = UnpackerFactory::CreateUnpacker(Unpacker::UnpackerType::UP_GFX3);
-		unpackers[6] = UnpackerFactory::CreateUnpacker(Unpacker::UnpackerType::UP_MINIMUM);
-		unpackers[7] = UnpackerFactory::CreateUnpacker(Unpacker::UnpackerType::UP_NORMAL);
-		unpackers[8] = UnpackerFactory::CreateUnpacker(Unpacker::UnpackerType::UP_MAXIMUM);
-		unpackers[9] = UnpackerFactory::CreateUnpacker(Unpacker::UnpackerType::UP_IS);
-
-		//unpackers = vector<Unpacker_sp>(1);
-		//unpackers[0] = UnpackerFactory::CreateUnpacker(Unpacker::UnpackerType::UP_NORMAL);
+		InitUnpackers();
+#ifdef USE_MAGICK
+		InitImageMagick(argv);
+#endif
 	}
 
 	void Unpack() {
-		
 		unpackers[0]->Unpack(exePath.string() + "\\MUSIC.RES",	outputPath.string());
 		unpackers[1]->Unpack(exePath.string() + "\\INFOANG.RES", outputPath.string());
 		unpackers[2]->Unpack(exePath.string() + "\\INFOPOL.RES", outputPath.string());
@@ -81,7 +69,7 @@ public:
 	}
 
 	void ShowSplash() {
-		cout << "Clash Res Unpacker v0.72 by Griz" << endl << endl;
+		cout << "Clash Res Unpacker v0.84 by Griz" << endl << endl;
 		cout << "Supported files:"   << endl;
 		cout << "MAXIMUM.RES - 80%"  << endl;
 		cout << "NORMAL.RES  - 95%"  << endl;
@@ -99,6 +87,26 @@ private:
 	void InitPaths() {
 		exePath = GetExePath();
 		SetOutputPath("\\output");
+
+		//DebugConsole::LogDebug("Exe path: " + exePath.string());
+	}
+
+	void InitUnpackers() {
+		unpackers = vector<Unpacker_sp>(10);
+		unpackers[0] = UnpackerFactory::CreateUnpacker(Unpacker::UnpackerType::UP_MUSIC);
+		unpackers[1] = UnpackerFactory::CreateUnpacker(Unpacker::UnpackerType::UP_INFOANG);
+		unpackers[2] = UnpackerFactory::CreateUnpacker(Unpacker::UnpackerType::UP_INFOPOL);
+		unpackers[3] = UnpackerFactory::CreateUnpacker(Unpacker::UnpackerType::UP_MAPS);
+		unpackers[4] = UnpackerFactory::CreateUnpacker(Unpacker::UnpackerType::UP_SETUP);
+		unpackers[5] = UnpackerFactory::CreateUnpacker(Unpacker::UnpackerType::UP_GFX3);
+		unpackers[6] = UnpackerFactory::CreateUnpacker(Unpacker::UnpackerType::UP_MINIMUM);
+		unpackers[7] = UnpackerFactory::CreateUnpacker(Unpacker::UnpackerType::UP_NORMAL);
+		unpackers[8] = UnpackerFactory::CreateUnpacker(Unpacker::UnpackerType::UP_MAXIMUM);
+		unpackers[9] = UnpackerFactory::CreateUnpacker(Unpacker::UnpackerType::UP_IS);
+
+		//unpackers = vector<Unpacker_sp>(1);
+		//unpackers[0] = UnpackerFactory::CreateUnpacker(Unpacker::UnpackerType::UP_NORMAL);
+
 	}
 
 	void SetOutputPath(string folderName) {
@@ -109,12 +117,39 @@ private:
 
 		if (outputExists) {
 			//All is ok
-			DebugConsole::Log("Found output directory " + folderName);
+			//DebugConsole::Log("Found output directory " + folderName);
 		}
 		else {
 			//Create output directory
 			filesystem::v1::create_directory(outputPath);
-			DebugConsole::Log("Created output directory " + folderName);
+			//DebugConsole::Log("Created output directory " + folderName);
 		}
 	}
+
+#ifdef USE_MAGICK
+	void InitImageMagick(char **argv) {
+		DebugConsole::Log("");
+
+		cout << ("Initializing Imagemagick library...") << endl;
+
+		InitImageMagickCoderModule(argv);
+
+		Magick::InitializeMagick(*argv);
+		cout << " Done." << endl;
+
+		TestImageMagick();
+	}
+
+	void InitImageMagickCoderModule(char **argv) {
+		std::string path(argv[0]);
+		size_t slashPos = path.find_last_of('\\');
+		if (slashPos != path.npos) {
+			path = path.substr(0, slashPos + 1);
+		}
+
+		_putenv_s("MAGICK_CODER_MODULE_PATH", path.c_str());
+		cout << "Coder Path : " << path.c_str() << endl;
+	}
+
+#endif
 };

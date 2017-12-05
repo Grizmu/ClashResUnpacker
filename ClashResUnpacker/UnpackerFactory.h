@@ -32,6 +32,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include "InfoPolUnpacker.h"
 #include "SetupUnpacker.h"
 #include "IsUnpacker.h"
+#include "MapsUnpacker.h"
 #include <memory>
 
 typedef shared_ptr<Unpacker> Unpacker_sp;
@@ -59,6 +60,9 @@ public:
 		case Unpacker::UP_IS:
 			return make_shared<IsUnpacker>();
 			break;
+		case Unpacker::UP_MAPS:
+			return make_shared<MapsUnpacker>();
+			break;
 		case Unpacker::UP_INFOANG:
 			return make_shared<InfoAngUnpacker>();
 			break;
@@ -72,6 +76,7 @@ public:
 			return make_shared<DefaultUnpacker>();
 			break;
 		default:
+			std::cout << "[UnpackerFactory] Created default unpacker!" << endl;
 			return make_shared<DefaultUnpacker>();
 			break;
 		}

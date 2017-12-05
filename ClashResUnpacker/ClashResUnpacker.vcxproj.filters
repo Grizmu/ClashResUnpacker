@@ -13,8 +13,17 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Header Files\Unpackers">
+    <Filter Include="Header Files\FormatUnpackers">
+      <UniqueIdentifier>{c4b35cc2-eb7e-4d09-90f7-010946d47919}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ResFileUnpackers">
       <UniqueIdentifier>{34ae4657-eb1a-423f-94a4-8aa515c32cfc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Converters">
+      <UniqueIdentifier>{4c7ee519-d695-494b-90bf-f2f466b9b3f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Formats">
+      <UniqueIdentifier>{f28a631c-f0d8-407d-8cc5-694f3aac3d8a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -30,61 +39,73 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Unpacker.h">
-      <Filter>Header Files\Unpackers</Filter>
+      <Filter>Header Files\ResFileUnpackers</Filter>
     </ClInclude>
     <ClInclude Include="MaximumUnpacker.h">
-      <Filter>Header Files\Unpackers</Filter>
+      <Filter>Header Files\ResFileUnpackers</Filter>
     </ClInclude>
     <ClInclude Include="MusicUnpacker.h">
-      <Filter>Header Files\Unpackers</Filter>
+      <Filter>Header Files\ResFileUnpackers</Filter>
     </ClInclude>
     <ClInclude Include="UnpackerFactory.h">
-      <Filter>Header Files\Unpackers</Filter>
+      <Filter>Header Files\ResFileUnpackers</Filter>
     </ClInclude>
     <ClInclude Include="DefaultUnpacker.h">
-      <Filter>Header Files\Unpackers</Filter>
+      <Filter>Header Files\ResFileUnpackers</Filter>
     </ClInclude>
     <ClInclude Include="NormalUnpacker.h">
-      <Filter>Header Files\Unpackers</Filter>
+      <Filter>Header Files\ResFileUnpackers</Filter>
     </ClInclude>
     <ClInclude Include="Color.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="S32Unpacker.h">
-      <Filter>Header Files\Unpackers</Filter>
-    </ClInclude>
     <ClInclude Include="MinimumUnpacker.h">
-      <Filter>Header Files\Unpackers</Filter>
-    </ClInclude>
-    <ClInclude Include="WavUnpacker.h">
-      <Filter>Header Files\Unpackers</Filter>
-    </ClInclude>
-    <ClInclude Include="PcxUnpacker.h">
-      <Filter>Header Files\Unpackers</Filter>
+      <Filter>Header Files\ResFileUnpackers</Filter>
     </ClInclude>
     <ClInclude Include="Gfx3Unpacker.h">
-      <Filter>Header Files\Unpackers</Filter>
+      <Filter>Header Files\ResFileUnpackers</Filter>
     </ClInclude>
     <ClInclude Include="SetupUnpacker.h">
-      <Filter>Header Files\Unpackers</Filter>
+      <Filter>Header Files\ResFileUnpackers</Filter>
     </ClInclude>
     <ClInclude Include="InfoAngUnpacker.h">
-      <Filter>Header Files\Unpackers</Filter>
+      <Filter>Header Files\ResFileUnpackers</Filter>
     </ClInclude>
     <ClInclude Include="InfoPolUnpacker.h">
-      <Filter>Header Files\Unpackers</Filter>
+      <Filter>Header Files\ResFileUnpackers</Filter>
     </ClInclude>
     <ClInclude Include="MapsUnpacker.h">
-      <Filter>Header Files\Unpackers</Filter>
+      <Filter>Header Files\ResFileUnpackers</Filter>
     </ClInclude>
     <ClInclude Include="MapUnpacker.h">
-      <Filter>Header Files\Unpackers</Filter>
-    </ClInclude>
-    <ClInclude Include="InfostreamUnpacker.h">
-      <Filter>Header Files\Unpackers</Filter>
+      <Filter>Header Files\ResFileUnpackers</Filter>
     </ClInclude>
     <ClInclude Include="IsUnpacker.h">
-      <Filter>Header Files\Unpackers</Filter>
+      <Filter>Header Files\ResFileUnpackers</Filter>
+    </ClInclude>
+    <ClInclude Include="S32Unpacker.h">
+      <Filter>Header Files\FormatUnpackers</Filter>
+    </ClInclude>
+    <ClInclude Include="PcxUnpacker.h">
+      <Filter>Header Files\FormatUnpackers</Filter>
+    </ClInclude>
+    <ClInclude Include="WavUnpacker.h">
+      <Filter>Header Files\FormatUnpackers</Filter>
+    </ClInclude>
+    <ClInclude Include="InfostreamUnpacker.h">
+      <Filter>Header Files\FormatUnpackers</Filter>
+    </ClInclude>
+    <ClInclude Include="FormatUnpacker.h">
+      <Filter>Header Files\FormatUnpackers</Filter>
+    </ClInclude>
+    <ClInclude Include="S32ToBMPConverter.h">
+      <Filter>Header Files\Converters</Filter>
+    </ClInclude>
+    <ClInclude Include="Palette.h">
+      <Filter>Header Files\Formats</Filter>
+    </ClInclude>
+    <ClInclude Include="S32File.h">
+      <Filter>Header Files\Formats</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

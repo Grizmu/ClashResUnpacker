@@ -28,6 +28,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include <iomanip>
 #include <algorithm>
 #include <sstream>
+#include "FormatUnpacker.h"
 
 using namespace std;
 
@@ -38,7 +39,7 @@ struct WavResData {
 	int32_t size;
 };
 
-class WavUnpacker {
+class WavUnpacker : FormatUnpacker {
 
 public:
 	std::list<size_t> wavDataPositions;

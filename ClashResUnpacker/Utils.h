@@ -140,10 +140,17 @@ struct PCXHeader
 //_____________________________________________________________________________
 filesystem::v1::path GetExePath()
 {
+	//Unicode support
 	wchar_t buffer[MAX_PATH];
 	GetModuleFileName(NULL, buffer, MAX_PATH);
 	wstring ws(buffer);
 	string str(ws.begin(), ws.end());
+
+	//Non unicode
+	//char buffer[MAX_PATH];
+	//GetModuleFileName(NULL, buffer, MAX_PATH);
+	//wstring ws(buffer);
+	//string str(buffer);
 
 	string::size_type pos = str.find_last_of("\\/");
 

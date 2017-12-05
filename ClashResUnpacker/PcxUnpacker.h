@@ -28,6 +28,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include <iomanip>
 #include <algorithm>
 #include <sstream>
+#include "FormatUnpacker.h"
 
 struct PcxResData {
 	char name[14];
@@ -36,7 +37,7 @@ struct PcxResData {
 	int32_t size;
 };
 
-class PcxUnpacker {
+class PcxUnpacker : FormatUnpacker {
 private:
 	bool unpackRawS32 = false;
 
@@ -107,21 +108,24 @@ public:
 		cout << "Pcx unpack completed." << endl;
 	}
 
-	void UnpackPcx(const std::string &data, const PcxResData &pcxData) {
 
-		string pcxName(pcxData.name);
-		cout << ("Extracting " + pcxName + "...");
+	void UnpackPcx(const std::string &data, const PcxResData &pcxResData) {
 
-		size_t pos = pcxName.find("GFX", 0);
-		if (pos!= pcxName.npos) {
-			pcxName = pcxName.substr(0, pos) + "PCX";
-		}
+		string fileName(pcxResData.name);
+		cout << ("Extracting " + fileName + "...");
 
-		std::experimental::filesystem::v1::path pcxOutputPath = outputPath.string() + "\\" + pcxName;
+		//size_t pos = fileName.find("GFX", 0);
+		//if (pos!= fileName.npos) {
+			std::replace(fileName.begin(), fileName.end(), '.', '_');
+		//}
+
+		std::string pcxData = data.substr(pcxResData.offset, pcxResData.size);
+
+		std::experimental::filesystem::v1::path pcxOutputPath = outputPath.string() + "\\" + fileName + ".PCX";
 
 		ofstream newPcxFile(pcxOutputPath.string(), ios::binary);
 
-		newPcxFile << data.substr(pcxData.offset, pcxData.size);
+		newPcxFile << pcxData;
 		newPcxFile.flush();
 		newPcxFile.close();
 

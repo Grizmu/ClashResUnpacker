@@ -44,6 +44,7 @@ private:
 	Unpacker() {}
 
 protected:
+	bool shouldConvertFormats = true;
 
 	Unpacker(UnpackerType type) {
 		this->type = type;
@@ -53,4 +54,9 @@ public:
 
 	virtual ~Unpacker() {};
 	virtual void Unpack(std::string file, std::string outputDir) {};
+	
+	///If set to true the unpacker will try to convert the file format to a newer one.
+	void SetConvertFormats(bool value) {
+		shouldConvertFormats = value;
+	}
 };
