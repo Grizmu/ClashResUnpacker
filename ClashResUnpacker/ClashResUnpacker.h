@@ -66,7 +66,7 @@ public:
 	void ShowSplash() {
 		cout << "Clash Res Unpacker v0.84 by Griz" << endl << endl;
 		cout << "Supported files:"   << endl;
-		cout << "MAXIMUM.RES - 80%"  << endl;
+		cout << "MAXIMUM.RES - 85%"  << endl;
 		cout << "NORMAL.RES  - 95%"  << endl;
 		cout << "MINIMUM.RES - 95%"  << endl;
 		cout << "SETUP.RES   - 10%"  << endl;
